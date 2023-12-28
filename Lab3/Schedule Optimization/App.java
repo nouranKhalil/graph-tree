@@ -44,7 +44,12 @@ public class App {
 
         GraphColouring scheduleClasses = new GraphColouringImp(graph);
         scheduleClasses.setColouring();
-        System.out.println(scheduleClasses.getColouring());
+        System.out.println("Optimized Class Schedule:");
+        HashMap<String, colors> result = scheduleClasses.getColouring();
+        for(String key : result.keySet()){
+            System.out.println(key + " - " + result.get(key));
+        }
+        
 
     }
 }
