@@ -6,7 +6,18 @@ public class Main {
 
         System.out.print("Enter the list of airports: ");
         String[] airportNames = scanner.nextLine().split(", ");
-
+        if(airportNames.length <= 1)
+        {
+        	System.out.println("There must be at least two airports!");
+        	System.exit(0);
+        }
+        Set<String> uniqueAirports = new HashSet<>();
+        for (String airportName : airportNames) {
+            if (!uniqueAirports.add(airportName)) {
+                System.out.println("Duplicate airport found: " + airportName);
+                System.exit(0);
+            }
+        }
         AirlineNetwork airlineNetwork = new AirlineNetwork();
         for (String airportName : airportNames) {
             airlineNetwork.addAirport(airportName);
@@ -26,7 +37,8 @@ public class Main {
 
             System.out.print("The distance for flight " + flight + ": ");
             int distance = readInteger(scanner);
-            if (distance == -1) {
+            
+            if (distance < 0 ) {
                 System.out.println("Invalid distance format.");
                 return;
             }
@@ -67,6 +79,7 @@ public class Main {
 
     private static int readInteger(Scanner scanner) {
         try {
+
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             return -1;
